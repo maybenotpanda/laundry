@@ -10,6 +10,8 @@ use CodeIgniter\I18n\Time;
 
 class Pengeluaran extends BaseController
 {
+    protected $inventory;
+
     public function __construct()
     {
         $this->inventory = new Inventory_model();
@@ -28,7 +30,7 @@ class Pengeluaran extends BaseController
         $laundry =  $this->inventory->approvalInventory();
         $time = Time::now();
         $spreadsheet = new Spreadsheet();
-        // tulis header/nama kolom 
+        // tulis header/nama kolom
         $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A1', 'No')
             ->setCellValue('B1', 'Invoice')

@@ -8,8 +8,8 @@ use CodeIgniter\I18n\Time;
 
 class Customer extends BaseController
 {
-
     protected $customer = 'App\Models\Customer_model';
+
     public function __construct()
     {
         $this->customer = new Customer_model();

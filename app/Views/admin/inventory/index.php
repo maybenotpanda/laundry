@@ -101,7 +101,6 @@
     </section>
     <!-- /.content -->
 </div>
-
 <?= $this->include('admin/inventory/modal'); ?>
 <!-- /.content-wrapper -->
 <?= $this->endSection(); ?>
