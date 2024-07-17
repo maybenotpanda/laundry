@@ -83,6 +83,3 @@
 
 <?= $this->include('admin/service/modal'); ?>
 <?= $this->endSection(); ?>
-<script>
-    window.print();
-</script>

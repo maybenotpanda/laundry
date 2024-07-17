@@ -2,16 +2,16 @@
 
 namespace App\Controllers;
 
-// use App\Models\Service_model;
-use App\Models\Service_modal;
+use App\Models\Service_model;
 use App\Models\Laundry_model;
 
 class Home extends BaseController
 {
+    protected $service;
+    protected $laundry;
     public function __construct()
     {
-        // $this->service = new Service_model();
-        $this->service = new Service_modal();
+        $this->service = new Service_model();
         $this->laundry = new Laundry_model();
     }
     public function index()
@@ -22,7 +22,6 @@ class Home extends BaseController
             'laundry'  => $this->laundry->search($keyword)
         ];
         return view('index', $data);
-        // return view('welcome_message');
     }
 
     public function detail($keyword)

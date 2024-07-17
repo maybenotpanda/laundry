@@ -9,6 +9,9 @@ use CodeIgniter\I18n\Time;
 
 class Dashboard extends BaseController
 {
+    protected $laundry;
+    protected $inventory;
+
     public function __construct()
     {
         $this->laundry = new Laundry_model();
