@@ -7,8 +7,8 @@ use App\Models\Activity_model;
 
 class Activity extends BaseController
 {
-    protected $activity;
 
+    protected $activity;
     public function __construct()
     {
         $this->activity = new Activity_model();

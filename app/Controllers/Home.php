@@ -22,6 +22,7 @@ class Home extends BaseController
             'laundry'  => $this->laundry->search($keyword)
         ];
         return view('index', $data);
+        // return view('welcome_message');
     }
 
     public function detail($keyword)

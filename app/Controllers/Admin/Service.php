@@ -8,7 +8,6 @@ use App\Models\Service_model;
 class Service extends BaseController
 {
     protected $service;
-
     public function __construct()
     {
         $this->service = new Service_model();
