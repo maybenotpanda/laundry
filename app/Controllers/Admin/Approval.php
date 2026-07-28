@@ -7,6 +7,7 @@ use App\Controllers\BaseController;
 
 class Approval extends BaseController
 {
+    protected $inventory;
     public function __construct()
     {
         $this->inventory = new Inventory_model();

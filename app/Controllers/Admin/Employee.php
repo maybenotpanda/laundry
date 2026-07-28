@@ -11,6 +11,9 @@ use CodeIgniter\I18n\Time;
 
 class Employee extends BaseController
 {
+    protected $employee;
+    protected $groupModel;
+    protected $userModel;
     public function __construct()
     {
         $this->employee     = new Employee_model();

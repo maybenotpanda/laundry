@@ -11,6 +11,10 @@ use App\Models\Service_model;
 
 class Laundry extends BaseController
 {
+    protected $laundry;
+    protected $customer;
+    protected $service;
+    protected $activity;
     public function __construct()
     {
         $this->laundry = new Laundry_model();

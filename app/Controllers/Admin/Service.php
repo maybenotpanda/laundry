@@ -7,11 +7,12 @@ use App\Models\Service_model;
 
 class Service extends BaseController
 {
+    protected $service;
     public function __construct()
     {
         $this->service = new Service_model();
     }
-    
+
     public function index()
     {
         $data  = [
@@ -64,11 +65,11 @@ class Service extends BaseController
         }
     }
 
-    
-        public function updateService($id)
+
+    public function updateService($id)
     {
         $data = array(
-             'price'  => $this->request->getPost('price'),
+            'price'  => $this->request->getPost('price'),
             'day'    => $this->request->getPost('day')
         );
 

@@ -96,7 +96,7 @@
                 "responsive": true,
             });
         });
-        
+
     </script>
 </body>
 

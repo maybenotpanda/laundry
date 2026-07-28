@@ -11,6 +11,7 @@ use App\Controllers\BaseController;
 
 class Pemasukkan extends BaseController
 {
+    protected $laundry;
     public function __construct()
     {
         $this->laundry = new Laundry_model();
@@ -29,7 +30,7 @@ class Pemasukkan extends BaseController
         $laundry =  $this->laundry->Income();
         $time = Time::now();
         $spreadsheet = new Spreadsheet();
-        // tulis header/nama kolom 
+        // tulis header/nama kolom
         $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A1', 'No')
             ->setCellValue('B1', 'Invoice')
