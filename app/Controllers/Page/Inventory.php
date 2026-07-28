@@ -9,7 +9,6 @@ use CodeIgniter\I18n\Time;
 class Inventory extends BaseController
 {
     protected $inventory;
-
     public function __construct()
     {
         $this->inventory = new Inventory_model();
@@ -117,7 +116,7 @@ class Inventory extends BaseController
         }
     }
 
-    public function updateStatus($id)
+     public function updateStatus($id)
     {
         $data = array(
             'status'    => $this->request->getPost('status'),

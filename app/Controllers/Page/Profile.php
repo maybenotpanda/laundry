@@ -11,11 +11,6 @@ use App\Controllers\BaseController;
 
 class Profile extends BaseController
 {
-    protected $user;
-    protected $employee;
-    protected $groupModel;
-    protected $userModel;
-
     public function __construct()
     {
         $this->user         = new UserModel();
@@ -36,8 +31,7 @@ class Profile extends BaseController
             redirect(base_url('home'));
         }
     }
-    public function updatePassword($id)
-    {
+    public function updatePassword($id){
         if (!$this->validate([
             'password'    => [
                 'rules'     => 'required',
@@ -60,7 +54,7 @@ class Profile extends BaseController
             $data = array(
                 'id' => $id,
                 'password_hash'     => Password::hash($this->request->getPost('password')),
-
+                
             );
             $save = $this->user->update($id, $data);
             if ($save) {

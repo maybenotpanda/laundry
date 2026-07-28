@@ -11,7 +11,6 @@ use CodeIgniter\I18n\Time;
 class Pengeluaran extends BaseController
 {
     protected $inventory;
-
     public function __construct()
     {
         $this->inventory = new Inventory_model();

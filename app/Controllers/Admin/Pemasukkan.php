@@ -12,7 +12,6 @@ use App\Controllers\BaseController;
 class Pemasukkan extends BaseController
 {
     protected $laundry;
-
     public function __construct()
     {
         $this->laundry = new Laundry_model();
