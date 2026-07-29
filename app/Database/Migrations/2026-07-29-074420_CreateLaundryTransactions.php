@@ -15,13 +15,13 @@ class CreateLaundryTransactions extends Migration
                 'unsigned'          => true,
                 'auto_increment'    => true
             ],
-            'customer_id' => [
+            'user_id' => [
                 'type'              => 'INT',
                 'constraint'        => 11,
                 'unsigned'          => true,
                 'null'              => true
             ],
-            'user_id' => [
+            'customer_id' => [
                 'type'              => 'INT',
                 'constraint'        => 11,
                 'unsigned'          => true,
@@ -62,16 +62,16 @@ class CreateLaundryTransactions extends Migration
         );
 
         $this->forge->addForeignKey(
-            'customer_id',
-            'customers',
+            'user_id',
+            'users',
             'id',
             'SET NULL',
             'CASCADE'
         );
 
         $this->forge->addForeignKey(
-            'user_id',
-            'users',
+            'customer_id',
+            'customers',
             'id',
             'SET NULL',
             'CASCADE'
