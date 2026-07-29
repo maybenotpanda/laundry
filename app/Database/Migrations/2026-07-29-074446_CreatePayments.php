@@ -43,10 +43,30 @@ class CreatePayments extends Migration
                 'null'              => true
             ],
         ]);
+
+        $this->forge->addKey(
+            'id',
+            TRUE
+        );
+
+        $this->forge->addForeignKey(
+            'transaction_id',
+            'laundry_transactions',
+            'id',
+            'CASCADE',
+            'CASCADE'
+        );
+
+        $this->forge->createTable(
+            'payments',
+            TRUE
+        );
     }
 
     public function down()
     {
-        //
+        $this->forge->dropTable(
+            'payments'
+        );
     }
 }
