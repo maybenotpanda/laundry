@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class Customer_model extends Model
 {
-    protected $table = 'customer';
+    protected $table = 'customers';
     protected $primaryKey = 'id';
     protected $allowedFields = ['name', 'address', 'phone'];
 
