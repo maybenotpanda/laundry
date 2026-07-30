@@ -51,7 +51,7 @@ $routes->group('/', function ($routes) {
 
     // CRUD laundry
     $routes->get('laundry/add-laundry/', 'Page\Laundry::pageAdd', ['filter' => 'role:staff ,admin']);
-    $routes->add('addlaundry', 'Page\Laundry::addLaundry', ['filter' => 'role:staff ,admin']);
+    $routes->add('transaction', 'TransactionController::store', ['filter' => 'role:staff ,admin']);
     $routes->get('laundry/', 'Page\Laundry::index',  ['filter' => 'role:staff,admin']);
     $routes->get('payment/(:any)', 'Page\Laundry::payment/$1',  ['filter' => 'role:staff,admin']);
     $routes->post('/laundry/paid/(:num)', 'Page\Laundry::paid/$1',  ['filter' => 'role:staff,admin']);
