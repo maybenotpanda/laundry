@@ -76,7 +76,6 @@
     <script src="<?= base_url(); ?>/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="<?= base_url(); ?>/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="<?= base_url(); ?>/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-    <?= $this->renderSection('javascript'); ?>
     <script>
         $(function() {
             $('.select2').select2()
@@ -98,12 +97,10 @@
             });
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                $('.select2').select2();
-            }, 100);
-
-
+        $(document).ready(function() {
+            $('.select2').select2({
+                width: '100%'
+            });
             const addButton = document.getElementById('addOtherServices');
             const container = document.getElementById('serviceContainer');
 
@@ -112,6 +109,7 @@
                 addButton.addEventListener('click', function() {
                     let firstForm = container.querySelector('.service-item');
                     let cloned = firstForm.cloneNode(true);
+                    $(cloned).find('.select2-container').remove();
 
                     // RESET INPUT
                     cloned.querySelectorAll('input')
@@ -130,21 +128,36 @@
 
                     // UPDATE NOMOR LAYANAN
                     let total = container.querySelectorAll('.service-item').length + 1;
-                    cloned.querySelector('.card-title').innerHTML = "Layanan #" + total;
+
+                    function updateServiceTitle() {
+                        let services = document.querySelectorAll('.service-item');
+                        let total = services.length;
+                        services.forEach(function(service, index) {
+                            let title = service.querySelector('.service-title');
+                            if (total > 1) {
+                                title.innerHTML = "Layanan #" + (index + 1);
+                            } else {
+                                title.innerHTML = "Layanan";
+                            }
+                        });
+                    }
 
                     // TAMBAHKAN FORM BARU
                     container.appendChild(cloned);
 
-                    // AKTIFKAN SELECT2 ULANG
-                    $(cloned).find('.select2').select2();
+                    $('.select2').select2({
+                        width: '100%'
+                    });
+
+                    updateServiceTitle();
                     updateRemoveButton();
                 });
             }
 
             // EVENT HAPUS
             document.addEventListener('click', function(e) {
-                if (e.target.closest('.removeRow')) {
-                    let button = e.target.closest('.removeRow');
+                if (e.target.closest('.remove-row')) {
+                    let button = e.target.closest('.remove-row');
                     let form = button.closest('.service-item');
                     let total = container.querySelectorAll('.service-item').length;
 
@@ -156,15 +169,16 @@
             });
         });
 
-        // ==============================
-        // ATUR TOMBOL HAPUS
-        // ==============================
         function updateRemoveButton() {
             let forms = document.querySelectorAll('.service-item');
-            let buttons = document.querySelectorAll('.removeRow');
+            let buttons = document.querySelectorAll('.remove-row');
 
             buttons.forEach(function(btn) {
-                btn.style.display = "block";
+                if (forms.length === 1) {
+                    btn.classList.add('d-none');
+                } else {
+                    btn.classList.remove('d-none');
+                }
             });
 
             if (forms.length == 1) {
