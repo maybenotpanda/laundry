@@ -46,11 +46,9 @@
                                 <div id="serviceContainer">
                                     <div class="card card-secondary service-item">
                                         <div class="card-header">
-                                            <h3 class="card-title">
-                                                Layanan #1
-                                            </h3>
+                                            <h4 class="card-title service-title">Layanan</h4>
                                             <div class="form-group">
-                                                <button type="button" class="btn btn-danger btn-sm float-right removeRow">
+                                                <button type="button" class="btn btn-danger btn-sm float-right d-none remove-row">
                                                     Hapus Data <i class="fa fa-trash"></i>
                                                 </button>
                                             </div>
