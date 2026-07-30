@@ -12,10 +12,10 @@
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         <h4><i class="icon fa fa-ban"></i> Peringatan!</h4>
-                        <?php echo session()->getFlashdata('error'); ?>
+                        <?= session()->getFlashdata('error'); ?>
                     </div>
                 <?php endif; ?>
-                <form action="<?= base_url('addlaundry'); ?>" method="post" id="text-editor">
+                <form action="<?= base_url('transaction'); ?>" method="post" id="text-editor">
                     <?= csrf_field(); ?>
                     <div class="box-body">
                         <div class="form-group">
@@ -24,12 +24,12 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-clock-o"></i>
                                 </div>
-                                <input type="text" name="created_at" class="form-control pull-right" id="reservationtime" value="<?= $now; ?>" readonly>
+                                <input type="text" name="" class="form-control pull-right" id="reservationtime" value="<?= $now; ?>" readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Pelanggan</label>
-                            <select class="form-control select2" name="id_customer" style="width: 100%;">
+                            <select class="form-control select2" name="customerId" style="width: 100%;">
                                 <option selected="selected" value="">- Pilih Pelanggan -</option>
                                 <?php
                                 foreach ($customer as $c) { ?>
@@ -38,35 +38,64 @@
                                 } ?>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label>Layanan</label>
-                            <select class="form-control select2" id="id" name="id_service" style="width: 100%;" onchange="getService()">
-                                <option selected="selected" value="">- Pilih Layanan -</option>
-                                <?php
-                                foreach ($service as $s) : ?>
-                                    <option value="<?= $s['id']; ?>"><?= $s['name']; ?> - Rp.<?= $s['price']; ?>/<?= $s['day']; ?>Hari </option>
-                                <?php endforeach; ?>
-                            </select>
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Detail Layanan</h3>
+                            </div>
+                            <div class="card-body">
+                                <div id="serviceContainer">
+                                    <div class="card card-secondary service-item">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                Layanan #1
+                                            </h3>
+                                            <div class="form-group">
+                                                <button type="button" class="btn btn-danger btn-sm float-right removeRow">
+                                                    Hapus Data <i class="fa fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label>Layanan</label>
+                                                <select class="form-control select2" name="serviceIds[]">
+                                                    <option value="">
+                                                        -Pilih Layanan-
+                                                    </option>
+                                                    <?php foreach ($service as $s): ?>
+                                                        <option value="<?= $s['id']; ?>">
+                                                            <?= $s['name']; ?> - Rp <?= number_format($s['price']); ?>/<?= $s['day']; ?> Hari
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Berat</label>
+                                                <input type="number" name="weight[]" class="form-control" placeholder="Kg">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Jumlah Pakaian</label>
+                                                <input type="number" name="qty[]" class="form-control" placeholder="Unit">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Keterangan</label>
+                                                <textarea name="description[]" class="form-control" placeholder="Keterangan"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-group pull-lift">
+                                    <button type="button" class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button>
+                                    <button type="button" class="btn btn-success btn-sm" id="addOtherServices">
+                                        Tambah Layanan
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Berat</label>
-                            <input type="text" name="weight" class="form-control" placeholder="/Kg">
-                        </div>
-                        <div class="form-group">
-                            <label>Jumlah Pakaian</label>
-                            <input type="number" name="qty" class="form-control" placeholder="Unit">
-                        </div>
-                        <div class="form-group">
-                            <label>Keterangan</label>
-                            <textarea type="text" name="note" class="form-control" placeholder="Keterangan"></textarea>
-                        </div>
-                        <input name="price_service" id="price" class="form-control w-100 costum-rounded" value="<?= (isset($s['price'])) ? $s['price'] : ''; ?>" type="hidden">
-                        <input name="day_service" id="day" class="form-control w-100 costum-rounded" value="<?= (isset($s['day'])) ? $s['day'] : ''; ?>" type="hidden">
-                        <input type="hidden" name="user_id" class="form-control" value="<?= user()->id; ?>">
+                        <input type="hidden" name="userId" class="form-control" value="<?= user()->id; ?>">
                     </div>
                     <div class="box-footer">
-                        <a href="<?= base_url('laundry'); ?>" class="btn btn">
-                            Kembali</a>
+                        <a href="<?= base_url('laundry'); ?>" class="btn btn">Kembali</a>
                         <button type="submit" class="btn btn-primary  pull-right">Simpan</button>
                     </div>
                 </form>
