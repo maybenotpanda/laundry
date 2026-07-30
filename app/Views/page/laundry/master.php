@@ -1,14 +1,12 @@
 <?= $this->extend('layouts/app'); ?>
 <?= $this->section('content'); ?>
-<!-- Main content -->
+
 <div class="content-wrapper">
     <section class="content">
-        <!-- SELECT2 EXAMPLE -->
         <div class="box box-default">
             <div class="box-header with-border">
                 <h3 class="box-title">Tambah <?= $title; ?></h3>
             </div>
-            <!-- /.box-header -->
             <div class="box-body">
                 <?php if (!empty(session()->getFlashdata('error'))) : ?>
                     <div class="alert alert-danger alert-dismissible">
@@ -66,7 +64,6 @@
                         <input name="day_service" id="day" class="form-control w-100 costum-rounded" value="<?= (isset($s['day'])) ? $s['day'] : ''; ?>" type="hidden">
                         <input type="hidden" name="user_id" class="form-control" value="<?= user()->id; ?>">
                     </div>
-                    <!-- /.box-body -->
                     <div class="box-footer">
                         <a href="<?= base_url('laundry'); ?>" class="btn btn">
                             Kembali</a>
@@ -77,17 +74,4 @@
         </div>
     </section>
 </div>
-<!-- /.box -->
-<!-- /.content -->
-<script>
-    function getService() {
-        let e = document.getElementById("id");
-        let ids = e.value;
-        $.get("/getService/" + ids, function(response) {
-            let detailS = JSON.parse(response);
-            document.getElementById("price").value = detailS.price;
-            document.getElementById("day").value = detailS.day;
-        });
-    }
-</script>
 <?= $this->endSection(); ?>
