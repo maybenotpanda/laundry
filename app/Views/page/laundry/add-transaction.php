@@ -15,7 +15,7 @@
                         <?= session()->getFlashdata('error'); ?>
                     </div>
                 <?php endif; ?>
-                <form action="<?= base_url('transaction'); ?>" method="post" id="text-editor">
+                <form action="<?= base_url('laundry/transaction'); ?>" method="post" id="transactionForm">
                     <?= csrf_field(); ?>
                     <div class="box-body">
                         <div class="form-group">
@@ -24,7 +24,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-clock-o"></i>
                                 </div>
-                                <input type="text" name="" class="form-control pull-right" id="reservationtime" value="<?= $now; ?>" readonly>
+                                <input type="text" name="" class="form-control pull-right" id="reservationtime" value="<?= $time; ?>" readonly>
                             </div>
                         </div>
                         <div class="form-group">
@@ -32,8 +32,8 @@
                             <select class="form-control select2" name="customerId" style="width: 100%;">
                                 <option selected="selected" value="">- Pilih Pelanggan -</option>
                                 <?php
-                                foreach ($customer as $c) { ?>
-                                    <option value="<?= $c['id']; ?>"><?= $c['name']; ?> - <?= $c['phone']; ?> </option>
+                                foreach ($customers as $customer) { ?>
+                                    <option value="<?= $customer['id']; ?>"><?= $customer['name']; ?> - <?= $customer['phone']; ?> </option>
                                 <?php
                                 } ?>
                             </select>
@@ -60,9 +60,9 @@
                                                     <option value="">
                                                         -Pilih Layanan-
                                                     </option>
-                                                    <?php foreach ($service as $s): ?>
-                                                        <option value="<?= $s['id']; ?>">
-                                                            <?= $s['name']; ?> - Rp <?= number_format($s['price']); ?>/<?= $s['day']; ?> Hari
+                                                    <?php foreach ($services as $service): ?>
+                                                        <option value="<?= $service['id']; ?>">
+                                                            <?= $service['name']; ?> - Rp <?= number_format($service['price']); ?>/<?= $service['day']; ?> Hari
                                                         </option>
                                                     <?php endforeach; ?>
                                                 </select>
@@ -90,15 +90,125 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" name="payment_action" id="paymentAction" value="later">
                         <input type="hidden" name="userId" class="form-control" value="<?= user()->id; ?>">
                     </div>
                     <div class="box-footer">
                         <a href="<?= base_url('laundry'); ?>" class="btn btn">Kembali</a>
-                        <button type="submit" class="btn btn-primary  pull-right">Simpan</button>
+                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#paymentConfirmationModal">
+                            Simpan
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </section>
 </div>
+<?= $this->include('page/laundry/partials/payment-confirmation'); ?>
+<?= $this->endSection(); ?>
+
+<?= $this->section('scripts'); ?>
+
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            width: '100%'
+        });
+        const addButton = document.getElementById('addOtherServices');
+        const container = document.getElementById('serviceContainer');
+
+        // CEK HALAMAN
+        if (addButton && container) {
+            addButton.addEventListener('click', function() {
+                let firstForm = container.querySelector('.service-item');
+                let cloned = firstForm.cloneNode(true);
+                $(cloned).find('.select2-container').remove();
+
+                // RESET INPUT
+                cloned.querySelectorAll('input')
+                    .forEach(function(input) {
+                        input.value = "";
+                    });
+
+                cloned.querySelectorAll('textarea')
+                    .forEach(function(textarea) {
+                        textarea.value = "";
+                    });
+                cloned.querySelectorAll('select')
+                    .forEach(function(select) {
+                        select.selectedIndex = 0;
+                    });
+
+                // UPDATE NOMOR LAYANAN
+                let total = container.querySelectorAll('.service-item').length + 1;
+
+                function updateServiceTitle() {
+                    let services = document.querySelectorAll('.service-item');
+                    let total = services.length;
+                    services.forEach(function(service, index) {
+                        let title = service.querySelector('.service-title');
+                        if (total > 1) {
+                            title.innerHTML = "Layanan #" + (index + 1);
+                        } else {
+                            title.innerHTML = "Layanan";
+                        }
+                    });
+                }
+
+                // TAMBAHKAN FORM BARU
+                container.appendChild(cloned);
+
+                $('.select2').select2({
+                    width: '100%'
+                });
+
+                updateServiceTitle();
+                updateRemoveButton();
+            });
+        }
+
+        // EVENT HAPUS
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.remove-row')) {
+                let button = e.target.closest('.remove-row');
+                let form = button.closest('.service-item');
+                let total = container.querySelectorAll('.service-item').length;
+
+                if (total > 1) {
+                    form.remove();
+                    updateRemoveButton();
+                }
+            }
+        });
+    });
+
+    function updateRemoveButton() {
+        let forms = document.querySelectorAll('.service-item');
+        let buttons = document.querySelectorAll('.remove-row');
+
+        buttons.forEach(function(btn) {
+            if (forms.length === 1) {
+                btn.classList.add('d-none');
+            } else {
+                btn.classList.remove('d-none');
+            }
+        });
+
+        if (forms.length == 1) {
+            buttons[0].style.display = "none";
+        }
+    }
+
+    // payment action
+    $('#payLater').on('click', function() {
+        $('#paymentAction').val('later');
+        $('#transactionForm').submit();
+    });
+
+    $('#payNow').on('click', function() {
+        $('#paymentAction').val('now');
+        $('#transactionForm').submit();
+    });
+</script>
+
 <?= $this->endSection(); ?>
