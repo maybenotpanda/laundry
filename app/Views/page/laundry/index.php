@@ -17,7 +17,7 @@
                 <!-- small box -->
                 <div class="small-box bg-yellow" style="background-color: #FFF !important; color:#444 !important;">
                     <div class="inner">
-                        <h3><?= $totalprocess ?></h3>
+                        <h3><?= $process_transactions ?></h3>
                         <p>Dalam Proses</p>
                     </div>
                     <div class="icon">
@@ -29,7 +29,7 @@
                 <!-- small box -->
                 <div class="small-box bg-yellow" style="background-color: #FFF !important; color:#444 !important;">
                     <div class="inner">
-                        <h3><?= $finished ?></h3>
+                        <h3><?= $completed_transactions ?></h3>
                         <p>Selesai</p>
                     </div>
                     <div class="icon">
@@ -40,8 +40,7 @@
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-yellow" style="background-color: #FFF !important; color:#444 !important;">
                     <div class="inner">
-                        <h3><?= $uptodate ?></sup></h3>
-
+                        <h3><?= $monthly_transactions ?></sup></h3>
                         <p>Transaksi Bulan Ini</p>
                     </div>
                     <div class="icon">
@@ -52,8 +51,8 @@
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-yellow" style="background-color: #FFF !important; color:#444 !important;">
                     <div class="inner">
-                        <h3><?= $latest ?></h3>
-                        <p>Transaksi Trakhir</p>
+                        <h3><?= $previous_transactions ?></h3>
+                        <p>Total Transaksi Sebelumnya</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-podium"></i>
