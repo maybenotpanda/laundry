@@ -70,7 +70,7 @@
                         <h3 class="box-title">Daftar <small><?= $title; ?></small></h3>
                         <div class="btn-group pull-right">
                             <button type="button" class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button>
-                            <a href="<?= base_url('laundry/add-laundry/'); ?>" class="btn btn-success btn-sm">
+                            <a href="<?= base_url('laundry/transaction/create'); ?>" class="btn btn-success btn-sm">
                                 Tambah</a>
                         </div>
                     </div>
