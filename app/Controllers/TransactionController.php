@@ -70,19 +70,20 @@ class TransactionController extends BaseController
       //   ]);
 
       return redirect()
-        ->to('laundry/add-laundry')
+        ->to('laundry/transaction/create')
         ->withInput()
         ->with('error', implode('<br>', $this->validation->getErrors()));
     }
 
     try {
       $result = $this->laundryService->create($data);
-      return $this->response
-        ->setStatusCode(201)
-        ->setJSON([
-          'status' => true,
-          'data' => $result
-        ]);
+      // return $this->response
+      //   ->setStatusCode(201)
+      //   ->setJSON([
+      //     'status' => true,
+      //     'data' => $result
+      //   ]);
+      return redirect()->to('laundry/invoice/' . $result);
     } catch (\Exception $e) {
       // return $this->response
       //   ->setStatusCode(404)
@@ -93,7 +94,7 @@ class TransactionController extends BaseController
       //   ]);
 
       return redirect()
-        ->to('laundry/add-laundry')
+        ->to('laundry/transaction/create')
         ->withInput()
         ->with('error', $e->getMessage());
     }
