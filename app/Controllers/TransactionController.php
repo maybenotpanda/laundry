@@ -18,6 +18,17 @@ class TransactionController extends BaseController
     $this->laundryService = new LaundryService();
   }
 
+  public function create()
+  {
+    $data  = [
+      'title'     => 'Tambah Laundry',
+      'customers' => $this->customers->getCustomer(),
+      'services'  => $this->services->getService(),
+      'time'      => $this->time,
+    ];
+    return view('page/laundry/add-transaction', $data);
+  }
+
   public function store()
   {
     $details = [];
