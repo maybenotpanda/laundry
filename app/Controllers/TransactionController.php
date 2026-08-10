@@ -4,16 +4,22 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 
+use App\Models\Customer_model;
+use App\Models\Service_model;
 use App\Services\LaundryService;
 use App\Validators\TransactionValidator;
 
 class TransactionController extends BaseController
 {
+  protected Customer_model $customers;
+  protected Service_model $services;
   protected LaundryService $laundryService;
   protected TransactionValidator $validatorTransaction;
 
   public function __construct()
   {
+    $this->customers = new Customer_model();
+    $this->services = new Service_model();
     $this->validatorTransaction = new TransactionValidator();
     $this->laundryService = new LaundryService();
   }
