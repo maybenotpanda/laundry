@@ -96,8 +96,8 @@
                 "responsive": true,
             });
         });
-
     </script>
+    <?= $this->renderSection('scripts'); ?>
 </body>
 
 </html>
