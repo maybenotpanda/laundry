@@ -23,4 +23,15 @@ class TransactionDetailsModel extends Model
   ];
 
   protected $useTimestamps = true;
+
+  public function getByTransactionId(int $transactionId): array
+  {
+    return $this
+      ->select('laundry_transaction_details.*, service.name as service_name')
+      ->join('service', 'service.id = ' . 'laundry_transaction_details.service_id')
+      ->where('laundry_transaction_details.transaction_id', $transactionId)
+      ->orderBy('laundry_transaction_details.id', 'ASC')
+      ->findAll()
+    ;
+  }
 }
