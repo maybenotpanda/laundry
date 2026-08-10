@@ -2,11 +2,13 @@
 
 namespace App\Controllers;
 
+use Config\Services;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\I18n\Time;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -38,6 +40,13 @@ class BaseController extends Controller
     protected $helpers = ['auth', 'string'];
 
     /**
+     * @var \CodeIgniter\Validation\Validation
+     */
+    protected $validation;
+
+    protected Time $time;
+
+    /**
      * Constructor.
      */
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
@@ -48,5 +57,7 @@ class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
+        $this->validation = Services::validation();
+        $this->time = Time::now();
     }
 }
