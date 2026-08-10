@@ -50,16 +50,20 @@ $routes->group('/', function ($routes) {
     $routes->get('/customer/delete/(:num)', 'Page\Customer::delete/$1', ['filter' => 'role:staff, admin']);
 
     // CRUD laundry
-    $routes->get('laundry/add-laundry/', 'Page\Laundry::pageAdd', ['filter' => 'role:staff ,admin']);
-    $routes->add('addlaundry', 'Page\Laundry::addLaundry', ['filter' => 'role:staff ,admin']);
-    $routes->get('laundry/', 'Page\Laundry::index',  ['filter' => 'role:staff,admin']);
-    $routes->get('payment/(:any)', 'Page\Laundry::payment/$1',  ['filter' => 'role:staff,admin']);
-    $routes->post('/laundry/paid/(:num)', 'Page\Laundry::paid/$1',  ['filter' => 'role:staff,admin']);
-    $routes->get('laundry/invoice/(:any)', 'Page\Laundry::getInvoice/$1',  ['filter' => 'role:staff,admin']);
-    $routes->post('/laundry/activity/(:num)', 'Page\Laundry::updateActivity/$1', ['filter' => 'role:staff,admin']);
-    $routes->post('/laundry/updatepaid/(:num)', 'Page\Laundry::updatePaid/$1', ['filter' => 'role:staff,admin']);
-    $routes->get('/getService/(:any)', 'Page\Laundry::getservice/$1');
+    $routes->get('laundry/', 'LaundryController::index',  ['filter' => 'role:staff,admin']);
+    $routes->get('payment/(:any)', 'LaundryController::payment/$1',  ['filter' => 'role:staff,admin']);
+    $routes->post('/laundry/paid/(:num)', 'LaundryController::paid/$1',  ['filter' => 'role:staff,admin']);
+    $routes->get('laundry/invoice/(:any)', 'LaundryController::getInvoice/$1',  ['filter' => 'role:staff,admin']);
+    $routes->post('/laundry/activity/(:num)', 'LaundryController::updateActivity/$1', ['filter' => 'role:staff,admin']);
+    $routes->post('/laundry/updatepaid/(:num)', 'LaundryController::updatePaid/$1', ['filter' => 'role:staff,admin']);
+    $routes->get('/getService/(:any)', 'LaundryController::getservice/$1');
 
+    /**
+     * Laundry
+     * Transaction
+     */
+    $routes->get('laundry/transaction/create', 'TransactionController::create', ['filter' => 'role:staff, admin']);
+    $routes->post('laundry/transaction', 'TransactionController::store', ['filter' => 'role:staff ,admin']);
 
 
     $routes->get('barang/', 'Page\Inventory::index',           ['filter' => 'role:staff,admin']);
