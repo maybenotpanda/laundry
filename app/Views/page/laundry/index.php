@@ -84,43 +84,38 @@
                                     <th>Nama Pelanggan</th>
                                     <th>Berat</th>
                                     <th>Harga</th>
-                                    <th>Layanan</th>
+                                    <!-- <th>Layanan</th> -->
                                     <th>Masuk</th>
-                                    <th>Selesai</th>
+                                    <!-- <th>Selesai</th> -->
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $no = 1;
-                                foreach ($laundry as $l) { ?>
+                                foreach ($get_laundry as $l) { ?>
                                     <tr>
                                         <td><?= $no; ?></td>
                                         <td><a href="laundry/invoice/<?= $l['id']; ?>"><?= $l['invoice']; ?></a></td>
-                                        <td><?= $l['name_customer']; ?></td>
-                                        <td><?= $l['weight']; ?></td>
-                                        <td><?= $l['price']; ?></td>
-                                        <td><?= $l['name_service']; ?></td>
+                                        <td><?= $l['customer']; ?></td>
+                                        <td><?= $l['total_weight']; ?></td>
+                                        <td><?= $l['total_amount']; ?></td>
+                                        <!-- <td><  $l['name_service']; </td> -->
                                         <td><?= date('d M y', strtotime($l['created_at'])); ?></td>
-                                        <td><?= date('d M y h:i', strtotime($l['finished_at'])); ?></td>
-
+                                        <!-- <td>date('d M y h:i', strtotime($l['finished_at']));</td> -->
                                         <td>
-                                            <?php
-                                            if ($l['name_activity'] == "Sudah diambil") {
-                                            ?>
-                                                <span class="label label-success"><?= $l['name_activity']; ?></span>
-                                            <?php } else if ($l['name_activity'] == "Dalam Proses") { ?>
-                                                <span class="label label-warning"><?= $l['name_activity']; ?></span>
-                                            <?php  } else if ($l['name_activity'] == "Selesai") { ?>
-                                                <span class="label label-info"><?= $l['name_activity']; ?></span>
-                                            <?php } else { ?>
-                                                <span class="label label-danger"><?= $l['name_activity']; ?></span>
+                                            <?php if ($l['status'] == "Finishing") { ?>
+                                                <span class="label label-success">Selesai</span>
+                                            <?php } else if ($l['status'] == "Process") { ?>
+                                                <span class="label label-warning">Dalam Proses</span>
+                                            <?php  } else if ($l['status'] == "Taken") { ?>
+                                                <span class="label label-info">Sudah Diambil</span>
                                             <?php } ?>
                                         </td>
-                                        <td><a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-default<?= $l['id']; ?>">
-                                                <i class=" fa fa-pencil"></i></a>
-                                            <a class="btn btn-success btn-sm" href="https://wa.me/<?= $l['phone_customer']; ?>?text=*Laundry Meilinia*%0A=======================%0A%0AJl. Cardiact No.38 (belakang RSUP H. Adam Malik), Medan Tuntungan%0ANo Tlp : 085158031022%0A=======================%0AHai <?= $l['name_customer']; ?> Laundry anda <?= $l['name_activity']; ?>%0A%0AInvoice : <?= $l['invoice']; ?>%0APaket Layanan : <?= $l['name_service']; ?> ( Rp.<?= $l['price_service']; ?> x <?= $l['weight']; ?> Kg )%0ATanggal Masuk : <?= date('d M y h:i', strtotime($l['created_at'])); ?>%0ATanggal Selesai : <?= date('d M y h:i', strtotime($l['finished_at'])); ?>%0A%0AStatus : <?= $l['status']; ?>%0ATotal : <?= $l['price']; ?>%0A=======================%0ATerima Kasih%0A%0ALink :%0Ahttps://laundry.demiadektu.com/detail/<?= $l['invoice']; ?>" target="_blank" class="btn btn-success pull-right" style="margin-right: 5px;">
-                                                <i class="fa fa-send"></i></a>
+                                        <td>
+                                            <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-default">
+                                                <i class=" fa fa-pencil"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 <?php $no++;
@@ -133,9 +128,9 @@
                                     <th>Nama Pelanggan</th>
                                     <th>Berat</th>
                                     <th>Harga</th>
-                                    <th>Layanan</th>
+                                    <!-- <th>Layanan</th> -->
                                     <th>Masuk</th>
-                                    <th>Selesai</th>
+                                    <!-- <th>Selesai</th> -->
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
